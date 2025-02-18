@@ -36,7 +36,7 @@ const RootLayout = () => {
         },
         {
           key: "settings",
-          label: <span>Settings</span>,
+          label: <Link to={'settings'}>Settings</Link>,
           icon: <SettingOutlined />,
         },
         {

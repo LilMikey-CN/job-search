@@ -12,7 +12,7 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, i
   };
 });
 
-export default function ProfilePage() {
+export default function SettingsPage() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -50,8 +50,8 @@ export default function ProfilePage() {
             minHeight: 280,
           }}
         >
-          <h1 className='text-2xl'>
-            Profile Page Content
+          <h1 className='text-2xl text-gray-700'>
+            Settings Page Content
           </h1>
         </Content>
       </Layout>
