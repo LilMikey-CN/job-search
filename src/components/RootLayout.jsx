@@ -1,4 +1,4 @@
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout, Menu } from 'antd';
 import { Dropdown, Avatar, Space } from "antd";
 
 const { Header, Content, Footer } = Layout;
@@ -6,6 +6,8 @@ const { Header, Content, Footer } = Layout;
 import { UserOutlined, LogoutOutlined, SettingOutlined } from "@ant-design/icons";
 
 import logo from "../assets/logo.svg";
+
+import { Outlet } from 'react-router-dom';
 
 const items = [
   { key: "1", label: <span>Home</span> },
@@ -37,11 +39,7 @@ const userMenu = (
   />
 );
 
-const MyLayout = ({ children }) => {
-
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+const RootLayout = () => {
 
   return (
     <Layout style={{ width: "100vw", }}>
@@ -77,30 +75,21 @@ const MyLayout = ({ children }) => {
           </Space>
         </Dropdown>
       </Header>
+
       <Content
         style={{
-          padding: '0 48px',
+          padding: '0 8px',
         }}
       >
-        {/*
-        <Breadcrumb
-          style={{
-            margin: '16px 0',
-          }}
-        >
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
-        */}
         <div
           style={{
             padding: 20,
           }}
         >
-          {children}
+          <Outlet />
         </div>
       </Content>
+
       <Footer
         style={{
           textAlign: 'center',
@@ -111,7 +100,7 @@ const MyLayout = ({ children }) => {
     </Layout>
   );
 };
-export default MyLayout;
+export default RootLayout;
 
 
 /*
