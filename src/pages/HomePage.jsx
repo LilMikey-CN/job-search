@@ -32,10 +32,10 @@ export default function HomePage() {
         />
       </Flex>
 
-      <div className="flex justify-center items-center bg-gray-100 mt-6">
-        <div className="canvas flex gap-6 bg-white p-6 shadow-lg rounded-lg w-full max-w-screen-lg">
+      <div className="flex justify-center items-center bg-gray-100 mt-4">
+        <div className="canvas flex flex-col md:flex-row gap-3 bg-inherit p-3 rounded-lg w-full max-w-screen-lg">
           {/* Left Section - Card Area */}
-          <div className="cardarea w-2/5 bg-gray-200 rounded-lg shadow-md p-3 overflow-y-auto">
+          <div className="cardarea w-full md:w-2/5 bg-inherit rounded-lg p-2 overflow-y-auto">
             {/* Cards will be placed here */}
             <Space direction="vertical">
               {jobs.map((job, index) => (
@@ -50,7 +50,7 @@ export default function HomePage() {
           </div>
 
           {/* Right Section - Card Details */}
-          <div className="carddetail w-3/5 bg-gray-50 rounded-lg shadow-md p-3">
+          <div className="carddetail w-3/5 bg-inherit rounded-lg p-2">
             {/* Selected card details will be displayed here */}
             <CardDetail
               jobTitle="Frontend Developer"
