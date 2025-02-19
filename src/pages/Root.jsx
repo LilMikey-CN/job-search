@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Layout, Menu } from 'antd';
 import { Dropdown, Avatar, Space } from "antd";
 
@@ -8,47 +8,50 @@ import { UserOutlined, LogoutOutlined, SettingOutlined } from "@ant-design/icons
 
 import logo from "../assets/logo.svg";
 
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 const items = [
-  { key: "home", label: <Link>Home</Link> },
+  { key: "/", label: <Link to="/">Home</Link> },
+  { key: "/employers", label: <Link to="employers">{"Employer's Home"}</Link> }
 ];
 
 
-
 const RootLayout = () => {
-  const [currentTab, setCurrentTab] = useState("home");
+  const location = useLocation();
+
+  // Extract the first path segment
+  const firstSegment = location.pathname.split("/")[1] || "";
+  const [currentTab, setCurrentTab] = useState(`/${firstSegment}`);
+
+  useEffect(() => {
+    setCurrentTab(`/${firstSegment}`);
+  }, [location.pathname, firstSegment]);
 
   const clickHandler = (e) => {
-    console.log('click ', e);
+    console.log('click ', e.key);
     setCurrentTab(e.key);
   };
 
   // User profile dropdown menu
-  const userMenu = (
-    <Menu
-      onClick={clickHandler}
-      items={[
-        {
-          key: "profile",
-          label: <Link to={'/profile'}>Profile</Link>,
-          icon: <UserOutlined />,
-        },
-        {
-          key: "settings",
-          label: <Link to={'settings'}>Settings</Link>,
-          icon: <SettingOutlined />,
-        },
-        {
-          key: "logout",
-          label: "Logout",
-          icon: <LogoutOutlined />,
-          danger: true,
-          onClick: () => console.log("Logging out..."),
-        },
-      ]}
-    />
-  );
+  const userMenuItems = [
+    {
+      key: "profile",
+      label: <Link to={'/profile'}>Profile</Link>,
+      icon: <UserOutlined />,
+    },
+    {
+      key: "settings",
+      label: <Link to={'settings'}>Settings</Link>,
+      icon: <SettingOutlined />,
+    },
+    {
+      key: "logout",
+      label: "Logout",
+      icon: <LogoutOutlined />,
+      danger: true,
+      onClick: () => console.log("Logging out..."),
+    },
+  ];
 
   return (
     <Layout style={{ width: "100vw", }}>
@@ -79,7 +82,7 @@ const RootLayout = () => {
         />
 
         {/* Right User Dropdown */}
-        <Dropdown overlay={userMenu} trigger={["click"]}>
+        <Dropdown menu={{ items: userMenuItems }} trigger={["click"]}>
           <Space style={{ cursor: "pointer" }}>
             <Avatar size="large" icon={<UserOutlined />} />
           </Space>

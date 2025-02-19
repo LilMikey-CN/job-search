@@ -1,9 +1,10 @@
-import { Card as AntdCard } from 'antd';
+import { Card } from 'antd';
 
-export default function Card({ jobTitle, companyName, jobDescription }) {
+export default function JobCard({ jobTitle, companyName, jobDescription }) {
 
   return (
-    <AntdCard
+    <Card
+      hoverable
       title={jobTitle}
       variant="borderless"
       style={{
@@ -12,6 +13,6 @@ export default function Card({ jobTitle, companyName, jobDescription }) {
     >
       <p className='text-sm font-light'>{companyName}</p>
       <p className='mt-6'>{jobDescription}</p>
-    </AntdCard>
+    </Card>
   );
 }

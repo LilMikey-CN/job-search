@@ -1,6 +1,6 @@
 import { Card as AntdCard, Divider } from 'antd';
 
-export default function CardDetail({ jobTitle, jobDetails, fullJobDescription }) {
+export default function JobDetail({ jobTitle, jobDetails, fullJobDescription }) {
 
   return (
     <AntdCard

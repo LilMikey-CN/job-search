@@ -1,17 +1,17 @@
-import JobCard from "../components/JobCard";
+import CandidateCard from "../components/CandidateCard";
 import JobDetail from "../components/JobDetail";
 
 import { Flex, Input, Space } from 'antd';
 const { Search } = Input;
 
 import { useEffect, useState } from "react";
-import { fetchJobs } from "../apis/jobs";
+import { fetchCandidates } from "../apis/candidates";
 
 export default function HomePage() {
-  const [jobs, setJobs] = useState([]);
+  const [candidates, setCandidates] = useState([]);
 
   useEffect(() => {
-    fetchJobs().then(setJobs);
+    fetchCandidates().then(setCandidates);
   }, []);
 
   return (
@@ -38,12 +38,14 @@ export default function HomePage() {
           <div className="cardarea w-full md:w-2/5 bg-inherit rounded-lg p-2 overflow-y-auto">
             {/* Cards will be placed here */}
             <Space direction="vertical">
-              {jobs.map((job, index) => (
-                <JobCard
+              {candidates.map((candidate, index) => (
+                <CandidateCard
                   key={index}
-                  jobTitle={job.jobTitle}
-                  companyName={job.companyName}
-                  jobDescription={job.jobDescription}
+                  avatarURL={candidate.avatarURL}
+                  name={candidate.name}
+                  location={candidate.location}
+                  advantages={candidate.advantages}
+                  education={candidate.education}
                 />
               ))}
             </Space>
