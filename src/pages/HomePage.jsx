@@ -50,7 +50,7 @@ export default function HomePage() {
           </div>
 
           {/* Right Section - Card Details */}
-          <div className="carddetail w-3/5 bg-inherit rounded-lg p-2">
+          <div className="carddetail w-3/5 bg-gray-50 rounded-lg shadow-md ">
             {/* Selected card details will be displayed here */}
             <CardDetail
               jobTitle="Frontend Developer"
