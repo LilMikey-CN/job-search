@@ -1,11 +1,10 @@
 import JobCard from "../components/JobCard";
 import JobDetail from "../components/JobDetail";
 
-import { Flex, Input, Space } from 'antd';
-const { Search } = Input;
-
 import { useEffect, useState } from "react";
 import { fetchJobs } from "../apis/jobs";
+
+import PageLayout from "../layout/Page.layout";
 
 export default function HomePage() {
   const [jobs, setJobs] = useState([]);
@@ -15,51 +14,22 @@ export default function HomePage() {
   }, []);
 
   return (
-    <>
-      <Flex justify="center">
-        <Search
-          style={{
-            width: '100%',
-            maxWidth: '600px',
-            margin: '0 auto',
-            marginTop: '20px',
-            marginBottom: '20px'
-          }}
-          placeholder="Keywords, job title or company"
-          enterButton="Find Jobs"
-          size="large"
-          onSearch={value => console.log(value)}
+    <PageLayout
+      cards={jobs.map((job, index) => (
+        <JobCard
+          key={index}
+          jobTitle={job.jobTitle} // Ensure correct property names
+          companyName={job.companyName}
+          jobDescription={job.jobDescription}
         />
-      </Flex>
-
-      <div className="flex justify-center items-center bg-gray-100 mt-4">
-        <div className="canvas flex flex-col md:flex-row gap-3 bg-inherit p-3 rounded-lg w-full max-w-screen-lg">
-          {/* Left Section - Card Area */}
-          <div className="cardarea w-full md:w-2/5 bg-inherit rounded-lg p-2 overflow-y-auto">
-            {/* Cards will be placed here */}
-            <Space direction="vertical">
-              {jobs.map((job, index) => (
-                <JobCard
-                  key={index}
-                  jobTitle={job.jobTitle}
-                  companyName={job.companyName}
-                  jobDescription={job.jobDescription}
-                />
-              ))}
-            </Space>
-          </div>
-
-          {/* Right Section - Card Details */}
-          <div className="carddetail w-3/5 bg-gray-50 rounded-lg shadow-md ">
-            {/* Selected card details will be displayed here */}
-            <JobDetail
-              jobTitle="Frontend Developer"
-              jobDetails="Tech Innovators Inc."
-              fullJobDescription="Develop and maintain web applications using React.js and modern frontend technologies."
-            />
-          </div>
-        </div>
-      </div>
-    </>
+      ))}
+      detail={
+        <JobDetail
+          jobTitle="Frontend Developer"
+          jobDetails="Tech Innovators Inc."
+          fullJobDescription="Develop and maintain web applications using React.js and modern frontend technologies."
+        />
+      }
+    />
   )
 }
