@@ -18,43 +18,62 @@ export default function ProfilePage() {
   } = theme.useToken();
 
   return (
-    <div>
-      <Layout
-        style={{
-          padding: '24px 0',
-          background: colorBgContainer,
-          borderRadius: borderRadiusLG,
-          height: '80vh',
-        }}
+    <>
+      <div
+        // description="Used for smaller screen, e.g. mobile"
+        className='block md:hidden'
       >
-        <Sider
+        <Menu
+          mode="inline"
+          defaultSelectedKeys={['1']}
+          defaultOpenKeys={['sub1']}
           style={{
-            background: colorBgContainer,
             height: '100%',
           }}
-          width={200}
-        >
-          <Menu
-            mode="inline"
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
-            style={{
-              height: '100%',
-            }}
-            items={items2}
-          />
-        </Sider>
-        <Content
+          items={items2}
+        />
+      </div>
+      <div
+        // description="Used for larger screen, e.g. desktop"
+        className='hidden md:block'
+      >
+        <Layout
           style={{
-            padding: '0 24px',
-            minHeight: 280,
+            padding: '24px 0',
+            background: colorBgContainer,
+            borderRadius: borderRadiusLG,
+            height: '80vh',
           }}
         >
-          <h1 className='text-2xl'>
-            Profile Page Content
-          </h1>
-        </Content>
-      </Layout>
-    </div>
+          <Sider
+            style={{
+              background: colorBgContainer,
+              height: '100%',
+            }}
+            width={200}
+          >
+            <Menu
+              mode="inline"
+              defaultSelectedKeys={['1']}
+              defaultOpenKeys={['sub1']}
+              style={{
+                height: '100%',
+              }}
+              items={items2}
+            />
+          </Sider>
+          <Content
+            style={{
+              padding: '0 24px',
+              minHeight: 280,
+            }}
+          >
+            <h1 className='text-2xl'>
+              Profile Page Content
+            </h1>
+          </Content>
+        </Layout>
+      </div>
+    </>
   );
 }

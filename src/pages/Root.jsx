@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button, Drawer } from 'antd';
 import { Dropdown, Avatar, Space } from "antd";
 
 const { Header, Content, Footer } = Layout;
 
-import { UserOutlined, LogoutOutlined, SettingOutlined } from "@ant-design/icons";
+import { UserOutlined, LogoutOutlined, SettingOutlined, MenuOutlined } from "@ant-design/icons";
 
 import logo from "../assets/logo.svg";
 
@@ -17,6 +17,9 @@ const items = [
 
 
 const RootLayout = () => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+
   const location = useLocation();
 
   // Extract the first path segment
@@ -31,6 +34,12 @@ const RootLayout = () => {
     console.log('click ', e.key);
     setCurrentTab(e.key);
   };
+
+  const drawerClickHandler = (e) => {
+    console.log('drawer click ', e.key);
+    setCurrentTab(e.key);
+    setDrawerOpen(false);
+  }
 
   // User profile dropdown menu
   const userMenuItems = [
@@ -81,33 +90,47 @@ const RootLayout = () => {
           }}
         />
 
-        {/* Right User Dropdown */}
-        <Dropdown menu={{ items: userMenuItems }} trigger={["click"]}>
-          <Space style={{ cursor: "pointer" }}>
-            <Avatar size="large" icon={<UserOutlined />} />
-          </Space>
-        </Dropdown>
+        {/* Desktop Dropdown (Hidden on Mobile) */}
+        <div className="hidden md:block">
+          <Dropdown menu={{ items: userMenuItems }} trigger={["click"]}>
+            <Space className="cursor-pointer">
+              <Avatar size="large" icon={<UserOutlined />} />
+            </Space>
+          </Dropdown>
+        </div>
+
+        {/* Mobile Drawer Button (Hidden on Desktop) */}
+        <div className="block md:hidden">
+          <Button
+            type="text"
+            icon={<MenuOutlined style={{ color: "#cccccc" }} />}
+            onClick={() => setDrawerOpen(true)}
+          />
+        </div>
       </Header>
 
-      <Content
-        style={{
-          padding: '0 8px',
-        }}
+      {/* Mobile Drawer for User Menu */}
+      <Drawer
+        title="User Menu"
+        placement="right"
+        closable={true}
+        onClose={() => setDrawerOpen(false)}
+        open={drawerOpen}
+        width="100vw"
       >
-        <div
-          style={{
-            padding: 20,
-          }}
-        >
+        <Menu
+          onClick={drawerClickHandler}
+          items={userMenuItems}
+        />
+      </Drawer>
+
+      <Content className='p-1' >
+        <div className='p-5'>
           <Outlet />
         </div>
       </Content>
 
-      <Footer
-        style={{
-          textAlign: 'center',
-        }}
-      >
+      <Footer className='text-center'>
         Talent Acquisition Platform ©{new Date().getFullYear()} Created by James Jiao
       </Footer>
     </Layout>
