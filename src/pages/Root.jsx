@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, Menu, Button, Drawer } from 'antd';
 import { Dropdown, Avatar, Space } from "antd";
 
@@ -68,7 +68,7 @@ const RootLayout = () => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          padding: "0 50px 0 10px",
+          padding: "0 40px 0 10px",
         }}
       >
         {/* Left SVG Logo */}
@@ -100,10 +100,11 @@ const RootLayout = () => {
         </div>
 
         {/* Mobile Drawer Button (Hidden on Desktop) */}
-        <div className="block md:hidden">
+        <div className="block md:hidden text-xl">
           <Button
+            size='large'
             type="text"
-            icon={<MenuOutlined style={{ color: "#cccccc" }} />}
+            icon={<MenuOutlined style={{ color: "#cccccc", fontSize: '20px' }} />}
             onClick={() => setDrawerOpen(true)}
           />
         </div>
@@ -119,8 +120,12 @@ const RootLayout = () => {
         width="100vw"
       >
         <Menu
+          rootClassName='!space-y-4 !text-xl'
           onClick={drawerClickHandler}
-          items={userMenuItems}
+          items={userMenuItems.map(item => ({
+            ...item, // ✅ Keep original properties
+            icon: React.cloneElement(item.icon, { style: { fontSize: "24px" } }), // ✅ Increase icon size
+          }))}
         />
       </Drawer>
 
