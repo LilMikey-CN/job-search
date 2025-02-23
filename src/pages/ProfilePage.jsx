@@ -24,13 +24,18 @@ export default function ProfilePage() {
         className='block md:hidden'
       >
         <Menu
+          rootClassName='!py-6 !space-y-6 !text-xl'
           mode="inline"
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           style={{
             height: '100%',
           }}
-          items={items2}
+          items={items2.map(item => ({
+            ...item,
+            label: <span className="text-xl md:text-base">{item.label}</span>, // ✅ Bigger on mobile, normal on desktop
+            icon: React.cloneElement(item.icon, { style: { fontSize: "23px", paddingRight: "5px" } }), // ✅ Increase icon size
+          }))}
         />
       </div>
       <div

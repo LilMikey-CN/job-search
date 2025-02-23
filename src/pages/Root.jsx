@@ -45,7 +45,7 @@ const RootLayout = () => {
   const userMenuItems = [
     {
       key: "profile",
-      label: <Link to={'/profile'}>Profile</Link>,
+      label: <Link to={'profile'}>Profile</Link>,
       icon: <UserOutlined />,
     },
     {
@@ -63,7 +63,9 @@ const RootLayout = () => {
   ];
 
   return (
-    <Layout style={{ width: "100vw", }}>
+    <Layout
+      className="!min-h-screen" // "!" prefix to disable the default styles
+    >
       <Header
         style={{
           display: 'flex',
@@ -130,7 +132,7 @@ const RootLayout = () => {
       </Drawer>
 
       <Content className='p-1' >
-        <div className='p-5'>
+        <div className='md:p-5'>
           <Outlet />
         </div>
       </Content>
